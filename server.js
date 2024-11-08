@@ -8,15 +8,28 @@ const cors = require('cors');
 // Define allowed origins for CORS
 const allowedOrigins = ['https://plant-protector-frontend.vercel.app'];
 
-// Use the CORS middleware
+// Middleware to allow CORS for all routes
+const allowCors = (fn) => async (req, res) => {
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Origin', 'https://plant-protector-frontend.vercel.app');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  );
+  if (req.method === 'OPTIONS') {
+    res.status(200).end();
+    return;
+  }
+  return await fn(req, res);
+};
+
+// Initialize CORS middleware
 app.use(cors({
   origin: allowedOrigins,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 }));
-
-app.use(res.set('Access-Control-Allow-Origin', '*'))
 
 app.use(express.json());
 
