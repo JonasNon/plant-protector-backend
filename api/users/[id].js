@@ -1,6 +1,14 @@
 const { getConnection } = require('../db');
 
 const handler = async (req, res) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://plant-protector-frontend.vercel.app'); // Adjust the URL if needed
+  res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end(); // Handle the CORS preflight request
+  }
+
   const db = await getConnection();
   const { id } = req.query;
 
