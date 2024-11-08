@@ -7,11 +7,16 @@ const cors = require('cors');
 
 const allowedOrigins = ['https://plant-protector-frontend.vercel.app'];
 
-app.use(cors({
-  origin: allowedOrigins,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-}));
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://plant-protector-frontend.vercel.app");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  next();
+});
+
+app.options('*', (req, res) => {
+  res.sendStatus(200);
+});
 
 app.use(express.json());
 
