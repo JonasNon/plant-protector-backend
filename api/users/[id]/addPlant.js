@@ -13,7 +13,7 @@ const handler = async (req, res) => {
   const urlParts = req.url.split('/');
   const id = urlParts[urlParts.indexOf('users') + 1]; // Get the segment after 'users'
   console.log("Extracted ID:", id);
-  const { plantName } = req.body;
+  let { plantName } = req.body;
   plantName = plantName[0]
   console.log(plantName)
 
