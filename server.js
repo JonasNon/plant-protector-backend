@@ -3,10 +3,6 @@ const mysql = require('mysql2');
 const app = express();
 require('dotenv').config();
 const PORT = process.env.PORT || 3036;
-const cors = require('cors');
-
-// Define allowed origins for CORS
-const allowedOrigins = ['https://plant-protector-frontend.vercel.app'];
 
 // Middleware to allow CORS for all routes
 const allowCors = (fn) => async (req, res) => {
@@ -23,13 +19,6 @@ const allowCors = (fn) => async (req, res) => {
   }
   return await fn(req, res);
 };
-
-// Initialize CORS middleware
-app.use(cors({
-  origin: allowedOrigins,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  credentials: true,
-}));
 
 app.use(express.json());
 
