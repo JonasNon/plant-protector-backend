@@ -4,6 +4,10 @@
       { "src": "api/**/*.js", "use": "@vercel/node" }
     ],
     "routes": [
+      { "src": "/api/users/(?<id>[^/]+)/ownedPlants", "dest": "/api/users/[id]/ownedPlants.js" },
+      { "src": "/api/users/(?<id>[^/]+)/addPlant", "dest": "/api/users/[id]/addPlant.js" },
+      { "src": "/api/users/(?<id>[^/]+)/removePlant", "dest": "/api/users/[id]/removePlant.js" },
+      { "src": "/api/users/(?<id>[^/]+)/updatePlant", "dest": "/api/users/[id]/updatePlant.js" },
       { "src": "/api/(.*)", "dest": "/api/$1" }
     ],
     "env": {
@@ -14,3 +18,4 @@
       "PORT": "3036"
     }
   }
+  
