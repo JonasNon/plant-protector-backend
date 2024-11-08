@@ -11,10 +11,9 @@ const allowedOrigins = ['https://plant-protector-frontend.vercel.app'];
 // Use the CORS middleware
 app.use(cors({
   origin: allowedOrigins,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
   credentials: true,
 }));
+
 
 app.use(express.json());
 
