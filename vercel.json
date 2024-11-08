@@ -7,9 +7,10 @@
       { "src": "/api/(.*)", "dest": "/api/$1" }
     ],
     "env": {
-      "DB_HOST": "@DB_HOST",
-      "DB_USER": "@DB_USER",
-      "DB_PASSWORD": "@DB_PASSWORD",
-      "DB_NAME": "@DB_NAME"
+      "DB_HOST": "plant-assistant.cpcwiwokyehx.us-east-2.rds.amazonaws.com",
+      "DB_USER": "admin",
+      "DB_PASSWORD": "plant-protector!",
+      "DB_NAME": "everything",
+      "PORT": "3036"
     }
   }
