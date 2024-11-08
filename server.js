@@ -5,18 +5,16 @@ require('dotenv').config();
 const PORT = process.env.PORT || 3036;
 const cors = require('cors');
 
+// Define allowed origins for CORS
 const allowedOrigins = ['https://plant-protector-frontend.vercel.app'];
 
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://plant-protector-frontend.vercel.app");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  next();
-});
-
-app.options('*', (req, res) => {
-  res.sendStatus(200);
-});
+// Use the CORS middleware
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+}));
 
 app.use(express.json());
 
