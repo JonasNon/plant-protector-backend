@@ -6,6 +6,14 @@
     "routes": [
       { "src": "/api/(.*)", "dest": "/api/$1" }
     ],
+    "functions": {
+      "api/users/index.js": {
+        "runtime": "vercel-nodejs@18.x"
+      },
+      "api/users/[id].js": {
+        "runtime": "vercel-nodejs@18.x"
+      }
+    },
     "env": {
       "DB_HOST": "@db_host",
       "DB_USER": "@db_user",
@@ -13,3 +21,4 @@
       "DB_NAME": "@db_name"
     }
   }
+  
