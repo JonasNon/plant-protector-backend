@@ -5,7 +5,14 @@ require('dotenv').config();
 const PORT = process.env.PORT || 3036;
 const cors = require('cors');
 
-app.use(cors());
+const allowedOrigins = ['https://plant-protector-frontend.vercel.app'];
+
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
+
 app.use(express.json());
 
 // MySQL database connection
@@ -15,6 +22,10 @@ const db = mysql.createConnection({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME
 });
+
+
+// Allow requests from your frontend's domain
+
 
 db.connect(err => {
   if (err) {
