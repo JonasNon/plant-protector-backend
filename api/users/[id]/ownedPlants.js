@@ -1,17 +1,20 @@
-const cors = require('cors');
 const { getConnection } = require('../../db');
 
 const handler = async (req, res) => {
-  // Use CORS middleware
-  res.use(cors({ origin: 'https://plant-protector-frontend.vercel.app', methods: ['GET', 'PUT', 'POST', 'OPTIONS'] }));
-  
+  res.setHeader('Access-Control-Allow-Origin', 'https://plant-protector-frontend.vercel.app');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
 
   const db = await getConnection();
+//   const { id } = req.query;
+  // Manually parse the ID from the URL
   const urlParts = req.url.split('/');
-  const id = urlParts[urlParts.indexOf('users') + 1]; // Manually extract the ID
+  const id = urlParts[urlParts.indexOf('users') + 1]; // Get the segment after 'users'
+  console.log("Extracted ID:", id);
 
   if (req.method === 'GET') {
     try {
