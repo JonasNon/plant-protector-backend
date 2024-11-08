@@ -16,6 +16,8 @@ app.use(cors({
   credentials: true,
 }));
 
+app.use(res.set('Access-Control-Allow-Origin', '*'))
+
 app.use(express.json());
 
 // MySQL database connection
@@ -26,12 +28,12 @@ const db = mysql.createConnection({
   database: process.env.DB_NAME
 });
 
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
-});
+// res.set('Access-Control-Allow-Origin', '*');
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
+//   next();
+// });
 
 
 db.connect(err => {
