@@ -1,16 +1,28 @@
+const cors = require('cors');
 const { getConnection } = require('../../db');
 
+const corsMiddleware = cors({
+  origin: 'https://plant-protector-frontend.vercel.app',
+  methods: ['GET', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+});
+
 const handler = async (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://plant-protector-frontend.vercel.app');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  await new Promise((resolve, reject) => {
+    corsMiddleware(req, res, (result) => {
+      if (result instanceof Error) {
+        return reject(result);
+      }
+      resolve();
+    });
+  });
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
 
   const db = await getConnection();
-//   const { id } = req.query;
+
   // Manually parse the ID from the URL
   const urlParts = req.url.split('/');
   const id = urlParts[urlParts.indexOf('users') + 1]; // Get the segment after 'users'
