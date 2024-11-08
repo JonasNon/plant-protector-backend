@@ -11,9 +11,10 @@ const allowedOrigins = ['https://plant-protector-frontend.vercel.app'];
 // Use the CORS middleware
 app.use(cors({
   origin: allowedOrigins,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 }));
-
 
 app.use(express.json());
 
@@ -26,7 +27,11 @@ const db = mysql.createConnection({
 });
 
 
-// Allow requests from your frontend's domain
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 
 
 db.connect(err => {
