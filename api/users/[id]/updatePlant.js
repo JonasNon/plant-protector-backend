@@ -13,7 +13,9 @@ const handler = async (req, res) => {
   const urlParts = req.url.split('/');
   const id = urlParts[urlParts.indexOf('users') + 1]; // Get the segment after 'users'
   console.log("Extracted ID:", id);
-  const { plantName, lastWatered } = req.body;
+  let { plantName, lastWatered } = req.body;
+  plantName = plantName[0]
+  console.log(plantName, lastWatered)
 
   if (req.method === 'PUT') {
     try {
